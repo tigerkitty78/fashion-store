@@ -1,0 +1,94 @@
+"use client";
+
+import React , {useState}from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useDispatch,useSelector } from "react-redux";
+import { addToCart } from "../actions/cartactions";
+import imgsrc from '../images/img1.jpg';
+
+
+export default function Itemcard({item}){
+    const [quantity, setquantity]=useState(1);
+    const [variant, setvarient]=useState('small');
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+const dispatch = useDispatch()
+function addtocart()
+{
+dispatch(addToCart(item,quantity,variant))
+}  
+
+
+if (!item) {
+    return <div>Loading...</div>; // Fallback UI
+}
+
+const price = item.prices && item.prices[variant] ? item.prices[variant] * quantity : 0; 
+return(
+        <div className="m-5 shadow p-3 mb-5 bg-white rounded ">
+            <div onClick={handleShow}>
+            <h1>{item.name}</h1>
+            <img src= {imgsrc} className="img-fluid" style={{height:'200px' , width:'200px'}}/>
+            </div>
+            <div className="flex-container d-flex">
+                <div className="w-100 m-1">
+
+                    <p>variants</p>
+                    <select className="form-control" value={variant} onChange={(e) => setvarient(e.target.value)}>
+                        {item.variants.map((variant) => (
+                            <option key={variant} value={variant}>{variant}</option>
+                        ))}
+                    </select>
+                   
+                    
+                </div>
+                <div className="w-100 m-1">
+                    <p>quantity</p>
+                    <select className="form-control" value={quantity} onChange={(e)=>{setquantity(e.target.value)}} 
+                        >
+                        {[...Array(10).keys()].map((x , i)=>{
+                            return <option value={i+1}>{i+1}</option>
+                        })}
+                    </select>
+
+                </div>
+                
+            </div>
+            <div className="flex-container">
+                <div className='m-1 w-100'>
+                    <p>Price : 600 
+                         LKR</p>
+                </div>
+                <div className="m-1 w-100">
+                    <button className="btn" onClick={addtocart}>add to cart</button>
+                </div>
+
+            </div>
+
+    <>
+      
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>dress</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><img src="https://www.pinterest.com/pin/672936369351998871/" className="img-fluid" style={{height:'400px', width:'400px'}}/>
+        <p>dresssssssss</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+    
+        </Modal.Footer>
+      </Modal>
+
+
+</>
+        </div>
+    );
+}
