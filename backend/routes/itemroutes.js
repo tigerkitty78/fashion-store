@@ -7,6 +7,8 @@ const Item= require('../models/item')
 
 console.log('Stock model imported:', Item);
 
+
+//route to get all items
 router.get("/getallitems",async(req,res)=>{
 
 try{
@@ -22,6 +24,11 @@ try{
 });
 module.exports = router;
 
+
+
+
+
+//search route
 router.get('/search-results', async (req, res) => {
     try {
         const { category } = req.query; // Read query param from the request
@@ -34,7 +41,6 @@ router.get('/search-results', async (req, res) => {
         console.log("search items",categories)
         res.json(categories);
     } 
-    
     catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server Error' });
@@ -42,3 +48,38 @@ router.get('/search-results', async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+
+//sort products by collection
+router.get("/collections",async(req,res)=>{
+
+    try {
+        const collections = await Item.distinct('collection');
+        res.status(200).json({ collections });
+      } catch (error) {
+        console.error('Error fetching collections:', error);
+        res.status(500).json({ message: 'Error fetching collections' });
+      }
+    
+    });
+    module.exports = router;
+
+
+
+ //get items collection wise   
+    router.get('/collection/:name', async (req, res) => {
+        const collectionName = req.params.name;
+      
+        try {
+          const items = await Item.find({ collection: collectionName });
+          if (items.length === 0) {
+            return res.status(404).json({ message: 'No items found for this collection' });
+          }
+          res.status(200).json({ items });
+        } catch (error) {
+          console.error('Error fetching items for collection:', error);
+          res.status(500).json({ message: 'Error fetching items' });
+        }
+      });    

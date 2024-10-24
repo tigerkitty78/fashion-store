@@ -9,6 +9,7 @@ import Search from '../components/search';
 
 import Carousel from '../components/carousel';
 import SideBar from '../components/sidebar';
+import CollectionCard from '../components/collectioncard';
 
 
 export default function Dash() {
@@ -26,6 +27,7 @@ export default function Dash() {
                               
                                 <SideBar/>
                                 <Carousel/>
+                                <CollectionCard/>
                             
 
                         </div>
