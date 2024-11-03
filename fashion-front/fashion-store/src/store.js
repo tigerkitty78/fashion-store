@@ -11,10 +11,11 @@ import {composeWithDevTools} from '@redux-devtools/extension'
 import {cartReducer} from './reducers/cartReducer'
 //import { registerUserReducer } from './reducers/userReducer'
 import { getAllItemsReducer } from './reducers/itemreducers';
+import { collectionsReducer } from './reducers/collectionReducer';
 
 const finalReducer = combineReducers({
     getAllItemsReducer:getAllItemsReducer,
-    
+    collectionsReducer:collectionsReducer,
     cartReducer:cartReducer,
     //registerUserReducer:registerUserReducer
 })

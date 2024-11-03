@@ -53,18 +53,26 @@ module.exports = router;
 
 
 //sort products by collection
-router.get("/collections",async(req,res)=>{
+router.get('/collection', async(req,res)=>{
 
-    try {
-        const collections = await Item.distinct('collection');
-        res.status(200).json({ collections });
-      } catch (error) {
-        console.error('Error fetching collections:', error);
-        res.status(500).json({ message: 'Error fetching collections' });
-      }
-    
-    });
-    module.exports = router;
+  try {
+      const collectionNames = await Item.distinct("collection");
+  // Map to extract the collection names
+ // const collectionNames = collections.map(collection => collection.name);
+
+  // Check if there are any collections
+  if (collectionNames.length === 0) {
+    return res.status(404).send("No collections found.");
+  } else {
+    return res.status(200).json(collectionNames); // Send the list of collection names
+  }
+} catch (error) {
+  console.error("Error retrieving collection names:", error);
+  return res.status(500).send("Server Error");
+}
+});
+module.exports = router;
+
 
 
 
@@ -83,3 +91,5 @@ router.get("/collections",async(req,res)=>{
           res.status(500).json({ message: 'Error fetching items' });
         }
       });    
+
+     

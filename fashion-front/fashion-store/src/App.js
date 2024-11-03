@@ -9,6 +9,8 @@ import Navbar from './components/navbar';
 import Search from './components/search';
 import SearchResults from './components/searchresults';
 import Dash from './screens/dash';
+import CollectionCard from './components/collectioncard';
+import CollectionsList from './components/collectionlist';
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
             <Route path='/search' exact element={<Search/>}/>
             <Route path="/search-results/:category" element={<SearchResults />} />
             <Route path='/dash' element={<Dash/>}/>
+            <Route path='/collection' element={<CollectionsList/>}/>
           </Routes>
         
       </BrowserRouter>
