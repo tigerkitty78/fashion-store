@@ -39,7 +39,7 @@ return(
                 <div className="w-100 m-1">
 
                     <p>variants</p>
-                    <select className="form-control" value={variant} onChange={(e) => setvarient(e.target.value)}>
+                    <select className="form-control"  style ={{ width:"100px" }} value={variant} onChange={(e) => setvarient(e.target.value)}>
                         {item.variants.map((variant) => (
                             <option key={variant} value={variant}>{variant}</option>
                         ))}
@@ -49,7 +49,7 @@ return(
                 </div>
                 <div className="w-100 m-1">
                     <p>quantity</p>
-                    <select className="form-control" value={quantity} onChange={(e)=>{setquantity(e.target.value)}} 
+                    <select className="form-control"   style ={{ width:"100px" }}value={quantity} onChange={(e)=>{setquantity(e.target.value)}} 
                         >
                         {[...Array(10).keys()].map((x , i)=>{
                             return <option value={i+1}>{i+1}</option>
