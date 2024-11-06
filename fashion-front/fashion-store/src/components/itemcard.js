@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useDispatch,useSelector } from "react-redux";
 import { addToCart } from "../actions/cartactions";
 import imgsrc from '../images/img1.jpg';
+import Ratings from "./reviews";
 
 
 export default function Itemcard({item}){
@@ -30,7 +31,7 @@ if (!item) {
 
 const price = item.prices && item.prices[variant] ? item.prices[variant] * quantity : 0; 
 return(
-        <div className="m-5 shadow p-3 mb-5 bg-white rounded ">
+        <div className="m-5 shadow p-3 mb-5 bg-white rounded " style={{marginTop: "100px"}}>
             <div onClick={handleShow}>
             <h1>{item.name}</h1>
             <img src= {imgsrc} className="img-fluid" style={{height:'200px' , width:'200px'}}/>
@@ -49,7 +50,7 @@ return(
                 </div>
                 <div className="w-100 m-1">
                     <p>quantity</p>
-                    <select className="form-control"   style ={{ width:"100px" }}value={quantity} onChange={(e)=>{setquantity(e.target.value)}} 
+                    <select className="form-control"   style ={{ width:"100px", marginRight:"800px"}} value={quantity} onChange={(e)=>{setquantity(e.target.value)}} 
                         >
                         {[...Array(10).keys()].map((x , i)=>{
                             return <option value={i+1}>{i+1}</option>
@@ -67,6 +68,7 @@ return(
                 <div className="m-1 w-100">
                     <button className="btn" onClick={addtocart}>add to cart</button>
                 </div>
+                <Ratings/>
 
             </div>
 
