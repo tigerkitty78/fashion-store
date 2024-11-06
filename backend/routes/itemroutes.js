@@ -3,7 +3,8 @@
 
 const express = require("express")
 const router = express.Router();
-const Item= require('../models/item')
+const Item= require('../models/item');
+const Review = require("../models/review");
 
 console.log('Stock model imported:', Item);
 
@@ -93,3 +94,18 @@ module.exports = router;
       });    
 
      
+
+      router.get('/review/:name', async (req, res) => {
+        const Name = req.params.name;
+      
+        try {
+          const items = await Review.find({ name: Name });
+          if (items.length === 0) {
+            return res.status(404).json({ message: 'No items found for this collection' });
+          }
+          res.status(200).json({ items });
+        } catch (error) {
+          console.error('Error fetching items for collection:', error);
+          res.status(500).json({ message: 'Error fetching items' });
+        }
+      });    
