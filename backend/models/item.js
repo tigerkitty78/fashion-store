@@ -11,7 +11,8 @@ const itemSchema = new mongoose.Schema({
   //image: { type: String, required: true },
   description: { type: String, required: true },
   collection:{type: String},
-  targetmarket:{type: String }
+  targetmarket:{type: String },
+  rating: { type: Number, default: 0 }
 }, 
 //{ timestamps: true,}
 );

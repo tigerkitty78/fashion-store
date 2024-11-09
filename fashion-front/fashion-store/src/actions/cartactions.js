@@ -1,41 +1,40 @@
 
-export const addToCart = (item, quantity, variant)=> (dispatch, getState)=>{
+export const addToCart = (item, quantity, variant) => (dispatch, getState) => {
 
     var cartItems = {
-        name :item.name,
-        _id:item._id,
-        image:item.image,
-        variant:variant,
-        quantity:Number(quantity),
-        prices:item.prices,
-        price:item.prices[0][variant]*quantity
+        name: item.name,
+        _id: item._id,
+        image: item.image,
+        variant: variant,
+        quantity: Number(quantity),
+        prices: item.prices,
+        price: item.prices[0][variant] * quantity
     }
 
 
-    if(cartItems.quantity>10){
+    if (cartItems.quantity > 10) {
         alert('you cannot add more than 10 items')
     }
-else{
-   
+    else {
 
 
-if(cartItems.quantity<1)
-{
-    dispatch({type:'DELETE_FROM_CART', payload:item})
-}
-else{
-    dispatch({type:'ADD_TO_CART', payload :cartItems});
-}
- }  
+
+        if (cartItems.quantity < 1) {
+            dispatch({ type: 'DELETE_FROM_CART', payload: item })
+        }
+        else {
+            dispatch({ type: 'ADD_TO_CART', payload: cartItems });
+        }
+    }
 
     const cartItem = getState().cartReducer.cartItems;
 
-    localStorage.setItem('cartItems' , JSON.stringify(cartItem));
+    localStorage.setItem('cartItems', JSON.stringify(cartItem));
 }
 
-export const deleteFromCart= (item) =>(dispatch,getState)=>{
-    dispatch({type:'DELETE_FROM_CART', payload:item})
-    const cartItems=getState().cartReducer.cartItems
+export const deleteFromCart = (item) => (dispatch, getState) => {
+    dispatch({ type: 'DELETE_FROM_CART', payload: item })
+    const cartItems = getState().cartReducer.cartItems
     localStorage.setItem('cartItems', JSON.stringify(cartItems))
 
 

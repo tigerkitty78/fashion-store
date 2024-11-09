@@ -11,6 +11,7 @@ import SearchResults from './components/searchresults';
 import Dash from './screens/dash';
 import CollectionCard from './components/collectioncard';
 import CollectionsList from './components/collectionlist';
+import ProductForm from './components/productfrom';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path='/search' exact element={<Search/>}/>
             <Route path="/search-results/:category" element={<SearchResults />} />
             <Route path='/dash' element={<Dash/>}/>
+            <Route path='/additem' element={<ProductForm/>}/>
             <Route path='/collection' element={<CollectionsList/>}/>
           </Routes>
         

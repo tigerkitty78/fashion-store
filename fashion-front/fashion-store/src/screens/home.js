@@ -29,7 +29,8 @@ export default function Home() {
                     items.map(item => {
                         return <div className='col-md-4 'key = {item._id}>
                             <div className='m-3'>
-                                <Itemcard item={item} />
+                                <Itemcard item={item} rating={item.rating} />
+                                
                             </div>
 
                         </div>

@@ -9,8 +9,6 @@ export default function CollectionsList() {
 
     //const { collections, loading, error } = useSelector((state) => state.collections); // Access Redux state
 
-
-
     const { collections } = useSelector((state) => state.collections || { collections: [] });
 
     //if (!collections || collections.length === 0) {
@@ -21,7 +19,10 @@ export default function CollectionsList() {
         <div>
             {collections.map((collection, index) => (
                 <CollectionCard key={collection} collection={collection} />
+                
             ))}
+
+            
         </div>
     );
     
