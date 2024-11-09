@@ -11,20 +11,46 @@ console.log('Stock model imported:', Item);
 
 //route to get all items
 router.get("/getallitems",async(req,res)=>{
-
 try{
     const stocks = await Item.find({});
     console.log("sending items");
     console.log("Items fetched from DB:", stocks);
     res.json(stocks);
-    //res.status(200).json(stocks); // Send items as a JSON response
-}catch (error){
-    return res.status(400).json({message:error});
+    //res.status(200).json(stocks); // Send items as a JSON response    
 }
-
+catch (error)
+{
+    return res.status(400).json({message:error});   
+}
 });
 module.exports = router;
 
+
+router.post("/postitem", async (req, res) => {
+  console.log("noooooooo");
+  const { name, prices, variants,description,targetmarket,category,collection } = req.body; // Adjust based on your item schema
+  try {
+    
+    const newItem = new Item({
+      name,
+            prices,
+            description,
+            variants,
+            targetmarket,
+            category,
+            collection
+    });
+    // Save the item to the database
+    await newItem.save();
+    console.log("New item saved to DB:", newItem);
+    // Send the saved item as a response
+    res.status(201).json(newItem);
+  } catch (error) {
+    res.status(400).json({ error});
+  }
+});
+
+module.exports = router;
 
 
 
