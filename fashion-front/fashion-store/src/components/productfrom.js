@@ -1,56 +1,129 @@
 import React from "react";
 import Itemcard from "./itemcard";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState,useSelector } from "react";
+import { useState } from "react";
+
+
+
 
 function ProductForm () {
     const [variants, setVariants] = useState([{ variant: '', price: '' }]);
+    const [name, setName] = useState('');
+    const [category, setCategory] = useState('');
+    const [description, setDescription] = useState('');
+    const [collection, setCollection] = useState('');
+    const [targetmarket, setTargetmarket] = useState('');
+    //const [category, setCategory] = useState('');
 
-    // Handler to update variant and price values
+
+    
+    // h andler to update variant and price values
     const handleChange = (index, field, value) => {
       const newVariants = [...variants];
       newVariants[index][field] = value;
       setVariants(newVariants);
     };
   
-    // Handler to add a new variant-price pair
+    // handler to add a new variant price pair
     const addVariant = () => {
       setVariants([...variants, { variant: '', price: '' }]);
     };
   
-    // Handler to remove a variant-price pair
+    //handler to remove a variant-price pair
     const removeVariant = (index) => {
       const newVariants = variants.filter((_, i) => i !== index);
       setVariants(newVariants);
     };
   
-    // Handler to submit the form data
-    const handleSubmit = (e) => {
+
+   
+
+    //submit the form data
+    const handleSubmit = async (e) => {
+
       e.preventDefault();
-      // Process variants and prices here (e.g., send to backend or update state)
+      const formData = {
+        name,
+        variants: variants.map(v => v.variant), // Only the variant names
+      prices, 
+            description,
+          
+            targetmarket,
+            category,
+            collection
+      };
       console.log('Variants and prices:', variants);
+
+      const prices = {};
+      variants.forEach(variant => {
+        if (variant.variant && variant.price) {
+          prices[variant.variant] = parseFloat(variant.price);
+        }
+      });
+
+      try {
+        const data = await postProductData(formData); // Call the action
+        console.log('Product data submitted successfully:', data);
+      } catch (error) {
+        console.error('Error submitting product data:', error);
+      }
+    
+
     };
 
     return (
-        <div >
-       <form style={{paddingTop:"200px", width:"600px", flex:"center", marginLeft:"510px", backgroundColor:"antiquewhite", paddingLeft:"20px",paddingRight:"20px" , borderRadius:"20px"}}>
+        
+       <form  onSubmit={handleSubmit} style={{paddingTop:"200px", width:"600px", flex:"center", marginLeft:"510px", backgroundColor:"antiquewhite", paddingLeft:"20px",paddingRight:"20px" , borderRadius:"20px"}}>
   <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+    <label for="exampleInputEmail1">name</label>
+    <input type="email"
+    name="name"   
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+    required
+     class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
 
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
+    <label for="exampleInputPassword1">category</label>
+    <input 
+    name="description"
+    value={category}
+    onChange={(e) => setCategory(e.target.value)}
+    required
+    class="form-control" id="exampleInputPassword1" placeholder="category"/>
   </div>
+
   <div class="form-group">
-  <label for="exampleInputPassword1">Password</label>
-  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
+  <label for="exampleInputPassword1">description</label>
+  <input type="password" 
+name="description"
+  value={description}
+  onChange={(e) => setDescription(e.target.value)}
+  required
+  class="form-control" id="exampleInputPassword1" placeholder="Password"/>
 </div>
+
 <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
+    <label for="exampleInputPassword1">collection</label>
+    <input type="password" 
+    name="collection"
+    value={collection}
+    onChange={(e) => setCollection(e.target.value)}
+    required
+    class="form-control" id="exampleInputPassword1" placeholder="Password"/>
   </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">target market</label>
+    <input type="password" 
+    name="targetmarket"
+    value={targetmarket}
+    onChange={(e) => setTargetmarket(e.target.value)}
+    required
+    class="form-control" id="exampleInputPassword1" placeholder="Password"/>
+  </div>
+
 
 
   {variants.map((item, index) => (
@@ -92,7 +165,7 @@ function ProductForm () {
 
 
 </form>
-    </div>
+  
     );
   }
   

@@ -8,7 +8,8 @@ export const addToCart = (item, quantity, variant) => (dispatch, getState) => {
         variant: variant,
         quantity: Number(quantity),
         prices: item.prices,
-        price: item.prices[0][variant] * quantity
+        price: item.prices[0][variant] * quantity,
+        rating: item.rating
     }
 
 

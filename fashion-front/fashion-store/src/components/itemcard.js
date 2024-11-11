@@ -13,7 +13,7 @@ import Ratings from "./reviews";
 
 export default function Itemcard({item}){
     const [quantity, setquantity]=useState(1);
-    const [variant, setvarient]=useState('small');
+    const [variant, setvariant]=useState('small');
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -28,6 +28,10 @@ dispatch(addToCart(item,quantity,variant))
 if (!item) {
     return <div>Loading...</div>; // Fallback UI
 }
+console.log("item in Itemcard:", item);
+console.log("Prices:", price); // This should display the prices object in the console.
+const priceSmall = price?.small || "Price not available";
+
 
 const price = item.prices && item.prices[variant] ? item.prices[variant] * quantity : 0; 
 return(
@@ -40,7 +44,7 @@ return(
                 <div className="w-100 m-1">
 
                     <p>variants</p>
-                    <select className="form-control"  style ={{ width:"100px" }} value={variant} onChange={(e) => setvarient(e.target.value)}>
+                    <select className="form-control"  style ={{ width:"100px" }} value={variant} onChange={(e) => setvariant(e.target.value)}>
                         {item.variants.map((variant) => (
                             <option key={variant} value={variant}>{variant}</option>
                         ))}
@@ -62,11 +66,13 @@ return(
             </div>
             <div className="flex-container">
                 <div className='m-1 w-100'>
-                    <p>Price : 600 
-                         LKR</p>
+                    <p>Price : {item.prices[0][variant]*quantity} LKR</p>
                 </div>
                 <div className="m-1 w-100">
                     <button className="btn" onClick={addtocart}>add to cart</button>
+                </div>
+                <div>
+                    
                 </div>
                
             </div>
