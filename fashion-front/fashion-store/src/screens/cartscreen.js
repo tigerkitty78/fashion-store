@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// '@fortawesome/fontawesome-free/css/all.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import { addToCart } from '../actions/cartactions';
 import { deleteFromCart } from '../actions/cartactions';
 export default function Cartscreen() {
@@ -9,8 +9,8 @@ export default function Cartscreen() {
   var subtotal = cartItems.reduce((x,item)=>x+item.price,0)
   const dispatch = useDispatch(addToCart)
   return (
-    <div className='cart'>
-      <div className='row justify-content-center'>
+    <div className='cart' >
+      <div className='row justify-content-center' style={{marginTop:"90px"}}>
         <div className='col-md-5'>
           <h2>My Cart</h2>
           {cartItems.map(item => (

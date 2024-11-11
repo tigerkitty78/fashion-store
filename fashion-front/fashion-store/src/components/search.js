@@ -35,8 +35,9 @@ export default function Search() {
         <div className="container">
 
             
-            <div className="d-flex m-0 ">
+            <div className="d-flex m-0 " >
                 <input
+                style={{width:"700px", height:"50px", marginTop:"50px", marginLeft:"170px"}}
                     type="text"
                     className="form-control w-50"
                     placeholder="Search by category..."
@@ -44,7 +45,7 @@ export default function Search() {
                     onChange={(e) => setCategory(e.target.value)}
                 />
                 <button className="btn btn-primary ml-2 custom-margin" 
-                
+                style={{marginLeft:"10px", height:"50px", marginTop:"50px"}}
                 onClick={handleSearch}>
                     Search
                 </button>
@@ -53,7 +54,7 @@ export default function Search() {
           
                
         </div>
-        <h2 className='lete'>explore the beauty.....</h2>
+        <h2 className='lete' style={{fontWeight:"30px"}}>explore the beauty...</h2>
         </div>
     );
 }
