@@ -29,11 +29,14 @@ if (!item) {
     return <div>Loading...</div>; // Fallback UI
 }
 console.log("item in Itemcard:", item);
-console.log("Prices:", price); // This should display the prices object in the console.
-const priceSmall = price?.small || "Price not available";
 
 
-const price = item.prices && item.prices[variant] ? item.prices[variant] * quantity : 0; 
+
+const price = item.prices?.[variant] * quantity || 0;
+console.log("Item prices:", item.prices); // Log to confirm structure
+
+
+
 return(
         <div className="m-5 shadow p-3 mb-5 bg-white rounded " style={{marginTop: "100px"}}>
             <div onClick={handleShow}>
@@ -66,7 +69,7 @@ return(
             </div>
             <div className="flex-container">
                 <div className='m-1 w-100'>
-                    <p>Price : {item.prices[0][variant]*quantity} LKR</p>
+                    <p>Price : {price} LKR</p>
                 </div>
                 <div className="m-1 w-100">
                     <button className="btn" onClick={addtocart}>add to cart</button>
