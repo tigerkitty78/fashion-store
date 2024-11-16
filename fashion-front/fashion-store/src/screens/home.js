@@ -22,12 +22,12 @@ export default function Home() {
 
     return (
         <div>
-            <div className='row'>
+            <div className='row'  >
 
                 {loading ? (<h1>loading</h1>) : error ? (<h1>something went wrong</h1>) : (
 
                     items.map(item => {
-                        return <div className='col-md-4 'key = {item._id}>
+                        return <div className='col-md-4 'key = {item._id} style={{marginTop:"60px"}}>
                             <div className='m-3'>
                                 <Itemcard item={item} rating={item.rating} />
                                 
