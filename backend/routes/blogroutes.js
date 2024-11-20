@@ -35,6 +35,104 @@ module.exports = router; //export
 
 
 
+
+
+////////////////////////////////////////////////
+
+//update item route
+router.put("/updateitem", async (req, res) => {
+  const { oldCode, newCode } = req.body;
+
+  try {
+    // Find and update the module
+    const module = await Module.findOne({ code: oldCode });
+    if (!module) {
+      return res.status(404).json({ error: "Module not found" });
+    }
+
+    module.code = newCode; // Update the code
+    await module.save();   // Save to the database
+
+    res.status(200).json({ message: "Module code updated successfully", module });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update module code", details: error });
+  }
+});
+
+module.exports = router;
+
+
+
+
+router.patch('/updateitem/:id', async (req, res) => {
+  try {
+    const {id} = req.params;
+
+    // Validate ObjectId
+    //if (!mongoose.Types.ObjectId.isValid(id)) {
+      //return res.status(400).json({
+        //status: 'Fail',
+        //message: 'Invalid Item ID format',
+      //});
+    //}
+
+    // Find and update the item
+    const updatedItem = await Item.findByIdAndUpdate(id, req.body, {
+      new: true, // Return the updated document
+      runValidators: true, // Ensure schema validation
+    });
+
+    // If no item is found
+    if (!updatedItem) {
+      return res.status(404).json({
+        status: 'Fail',
+        message: 'Item not found',
+      });
+    }
+
+    // Success response
+    res.status(200).json({
+      status: 'Success',
+      data: {
+        updatedItem,
+      },
+    });
+  } catch (err) {
+    console.error(err); // Log the error for debugging
+    res.status(500).json({
+      status: 'Error',
+      message: 'Server error occurred',
+      details: err.message,
+    });
+  }
+});
+
+module.exports = router;
+
+
+
+
+///////////////////////////////////////////////////////////
+//delete item
+
+app.delete('/deleteitem/:id', async(req,res) => {
+  await Item.findByIdAndDelete(req.params.id)
+  
+  try{
+    res.status(204).json({
+        status : 'Success',
+        data : {}
+    })
+  }catch(err){
+      res.status(500).json({
+          status: 'Failed',
+          message : err
+      })
+  }
+})
+
+
+
 router.post("/postblog", async (req, res) => {
     console.log("noooooooo");
     const { title,
