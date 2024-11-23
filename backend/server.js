@@ -7,6 +7,7 @@ console.log('Item model imported:', Item);
 const app = express();
 const port = process.env.PORT || 5000;
 const Test = require("./models/test");
+const TailorRotes = require("./routes/tailorRoutes");
 //app.use(cors()); 
 // MongoDB connection
 //const mongoURL = 'mongodb+srv://Navithma:Navithma78@cluster1.gqwja.mongodb.net/fashiondb?tls=true';
@@ -43,6 +44,7 @@ app.use(cors());
 // Routes
 app.get("/", (req, res) => res.send("Server working"));
 app.use('/api/items/', itemsRoutes);
+app.use('/api/tailors/',TailorRotes);
 
 //test route
 app.get('/create-item', async (req, res) => {
