@@ -16,15 +16,39 @@ try{
     console.log("sending items");
     console.log("Items fetched from DB:", stocks);
     res.json(stocks);
-    //res.status(200).json(stocks); // Send items as a JSON response    
+    res.status(200).json(stocks); // Send items as a JSON response    
 }
 catch (error)
 {
-    return res.status(400).json({message:error});   
+  console.error("Error fetching items:", error.message);
+  res.status(400).json({ message: "Database fetch error" });  
 }
 });
 module.exports = router;
 
+
+
+//create a blog post
+router.post("/create-post", async (req, res) => {
+  const newPost = new Item(req.body);
+    try {
+      // console.log("blog data from API:", req.body);
+      await newPost.save();
+      //const newPost = await Tailor.find({});
+      //await newPost.save();
+      res.status(201).send({
+        message: "Post created successfully",
+        post: newPost,
+      });
+    } catch (error) {
+      console.error("Error creating post", error);
+      res.status(500).send({ message: "Server error creating post" });
+    }
+    
+    
+  });
+
+  module.exports = router;
 
 router.post("/postitem", async (req, res) => {
   console.log("noooooooo");
